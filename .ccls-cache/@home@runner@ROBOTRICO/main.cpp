@@ -1,148 +1,128 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
+#include <random>
 
-const int BOARD_SIZE = 16;
-
+// Définition de la classe Cell représentant une case du plateau
 class Cell {
 public:
-    char symbol;
+    bool hasHorizontalWall;
+    bool hasVerticalWall;
+    bool hasRobot;
 
-    Cell() : symbol(' ') {}
+    Cell() : hasHorizontalWall(false), hasVerticalWall(false), hasRobot(false) {}
 };
 
-class Wall {
+// Définition de la classe GameBoard représentant le plateau de jeu
+class GameBoard {
 public:
-    bool isHorizontal;
+    static const int SIZE = 16;
+    std::vector<std::vector<Cell>> board;
 
-    Wall(bool horizontal) : isHorizontal(horizontal) {}
-};
+    GameBoard() {
+        board.resize(SIZE, std::vector<Cell>(SIZE));
+    }
 
-class Board {
+    void display() const {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                std::cout << "+";
+                std::cout << (board[i][j].hasHorizontalWall ? "-" : " ");
+            }
+            std::cout << "+\n";
+            for (int j = 0; j < SIZE; j++) {
+                std::cout << (board[i][j].hasVerticalWall ? "|" : " ");
+                std::cout << (board[i][j].hasRobot ? "R" : " ");
+            }
+            std::cout << "|\n";
+        }
+        for (int j = 0; j < SIZE; j++) {
+            std::cout << "+-";
+        }
+        std::cout << "+\n";
+    }
+
+    void generateBoard() {
+        generateOuterWalls();
+        generateInnerWalls();
+        placeRobots();
+    }
+
 private:
-    std::vector<std::vector<Cell>> cells;
+    std::random_device rd;
+    std::mt19937 rng{ rd() };
 
-public:
-    Board() {
-        cells.resize(BOARD_SIZE, std::vector<Cell>(BOARD_SIZE));
-    }
-
-    void initialize() {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                cells[i][j].symbol = ' ';
-            }
+    void generateOuterWalls() {
+        for (int i = 0; i < SIZE; i++) {
+            board[0][i].hasHorizontalWall = true;
+            board[SIZE - 1][i].hasHorizontalWall = true;
+            board[i][0].hasVerticalWall = true;
+            board[i][SIZE - 1].hasVerticalWall = true;
         }
     }
 
-    void placeWall(int x, int y, const Wall& wall) {
-        if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
-            if (wall.isHorizontal) {
-                cells[x][y].symbol = '-';
-                cells[x + 1][y].symbol = '-';
-            } else {
-                cells[x][y].symbol = '|';
-                cells[x][y + 1].symbol = '|';
-            }
-        }
+    void generateInnerWalls() {
+        generateQuadrantWalls(0, 0);
+        generateQuadrantWalls(0, SIZE / 2);
+        generateQuadrantWalls(SIZE / 2, 0);
+        generateQuadrantWalls(SIZE / 2, SIZE / 2);
+        generateRandomAngle();
     }
 
-    void placeCell(int x, int y, char symbol) {
-        if (x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE) {
-            cells[x][y].symbol = symbol;
-        }
+    void generateQuadrantWalls(int startX, int startY) {
+        generateRandomOuterWall(startX, startY);
+        generateRandomOuterWall(startX, startY + SIZE / 2);
+        generateRandomOuterWall(startX + SIZE / 2, startY);
+        generateRandomOuterWall(startX + SIZE / 2, startY + SIZE / 2);
+        generateRandomAngle(startX, startY);
+        generateRandomAngle(startX, startY + SIZE / 2);
+        generateRandomAngle(startX + SIZE / 2, startY);
+        generateRandomAngle(startX + SIZE / 2, startY + SIZE / 2);
     }
 
-    const std::vector<std::vector<Cell>>& getCells() const {
-        return cells;
+    void generateRandomOuterWall(int x, int y) {
+        std::uniform_int_distribution<int> dist(0, 1);
+        board[x][y].hasHorizontalWall = dist(rng) == 1;
+        board[x][y].hasVerticalWall = dist(rng) == 1;
     }
 
-    void print() const {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                std::cout << cells[i][j].symbol;
-            }
-            std::cout << std::endl;
+    void generateRandomAngle(int startX = 0, int startY = 0) {
+        std::uniform_int_distribution<int> distX(startX + 1, startX + SIZE / 2 - 2);
+        std::uniform_int_distribution<int> distY(startY + 1, startY + SIZE / 2 - 2);
+        int x = distX(rng);
+        int y = distY(rng);
+
+        board[x][y].hasHorizontalWall = true;
+        board[x][y].hasVerticalWall = true;
+    }
+
+    void placeRobots() {
+        std::uniform_int_distribution<int> dist(1, SIZE / 2 - 2);
+        std::uniform_int_distribution<int> distColor(0, 3);
+
+        for (int i = 0; i < 4; i++) {
+            int x = dist(rng);
+            int y = dist(rng);
+            board[x][y].hasRobot = true;
         }
+
+        int targetX = dist(rng);
+        int targetY = dist(rng);
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
+        board[targetX][targetY].hasRobot = true;
     }
 };
-
-void generateBoard(Board& board) {
-    board.initialize();
-
-    // Place the outer walls
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        board.placeWall(0, i, Wall(true));
-        board.placeWall(BOARD_SIZE - 1, i, Wall(true));
-        board.placeWall(i, 0, Wall(false));
-        board.placeWall(i, BOARD_SIZE - 1, Wall(false));
-    }
-
-    // Place the walls in the middle square
-    for (int i = 6; i < 10; i++) {
-        board.placeWall(6, i, Wall(true));
-        board.placeWall(9, i, Wall(true));
-        board.placeWall(i, 6, Wall(false));
-        board.placeWall(i, 9, Wall(false));
-    }
-
-    // Generate the walls and angles in each quadrant
-    srand(time(0));
-    for (int quadrant = 0; quadrant < 4; quadrant++) {
-        // Place two outer walls (one horizontal, one vertical)
-        int outerWallX = (quadrant % 2 == 0) ? 1 : BOARD_SIZE - 2;
-        int outerWallY = (quadrant < 2) ? 1 : BOARD_SIZE - 2;
-        board.placeWall(outerWallX, outerWallY, Wall(quadrant % 2 == 0));
-        board.placeWall((quadrant % 2 == 0) ? outerWallX + 1 : outerWallX - 1, outerWallY, Wall(quadrant % 2 == 0));
-
-        // Place four angles (two walls each)
-        for (int angle = 0; angle < 4; angle++) {
-            int angleX, angleY;
-            do {
-                angleX = (quadrant % 2 == 0) ? rand() % 4 + 2 : rand() % 4 + 10;
-                angleY = (quadrant < 2) ? rand() % 4 + 2 : rand() % 4 + 10;
-            } while (board.getCells()[angleX][angleY].symbol != ' ' || board.getCells()[angleX - 1][angleY].symbol != ' ' ||
-                     board.getCells()[angleX][angleY - 1].symbol != ' ' || board.getCells()[angleX - 1][angleY - 1].symbol != ' ');
-
-            board.placeWall(angleX, angleY, Wall(angle % 2 == 0));
-            board.placeWall(angleX - 1, angleY, Wall(angle % 2 == 0));
-            board.placeWall(angleX, angleY - 1, Wall(angle % 2 == 0));
-            board.placeWall(angleX - 1, angleY - 1, Wall(angle % 2 == 0));
-        }
-    }
-
-    // Place the additional angle in a randomly chosen quadrant
-    int additionalAngleQuadrant = rand() % 4;
-    int additionalAngleX, additionalAngleY;
-    do {
-        additionalAngleX = (additionalAngleQuadrant % 2 == 0) ? rand() % 4 + 2 : rand() % 4 + 10;
-        additionalAngleY = (additionalAngleQuadrant < 2) ? rand() % 4 + 2 : rand() % 4 + 10;
-    } while (board.getCells()[additionalAngleX][additionalAngleY].symbol != ' ' || board.getCells()[additionalAngleX - 1][additionalAngleY].symbol != ' ' ||
-             board.getCells()[additionalAngleX][additionalAngleY - 1].symbol != ' ' || board.getCells()[additionalAngleX - 1][additionalAngleY - 1].symbol != ' ');
-
-    board.placeWall(additionalAngleX, additionalAngleY, Wall(true));
-    board.placeWall(additionalAngleX - 1, additionalAngleY, Wall(true));
-    board.placeWall(additionalAngleX, additionalAngleY - 1, Wall(false));
-    board.placeWall(additionalAngleX - 1, additionalAngleY - 1, Wall(false));
-
-    // Place the robots randomly
-    char robots[] = { 'R', 'G', 'B', 'Y' };
-    for (int i = 0; i < 4; i++) {
-        int robotX, robotY;
-        do {
-            robotX = rand() % (BOARD_SIZE - 4) + 2;
-            robotY = rand() % (BOARD_SIZE - 4) + 2;
-        } while (board.getCells()[robotX][robotY].symbol != ' ');
-
-        board.placeCell(robotX, robotY, robots[i]);
-    }
-}
 
 int main() {
-    Board board;
-    generateBoard(board);
-    board.print();
+    GameBoard gameBoard;
+    gameBoard.generateBoard();
+    gameBoard.display();
 
     return 0;
 }
