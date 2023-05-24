@@ -1,2 +1,5 @@
 # ROBOTRICO
 jeux de plateau SMP
+
+
+SYNCRONISATION GIT TEST
