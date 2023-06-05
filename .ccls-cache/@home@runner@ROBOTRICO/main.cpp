@@ -1,128 +1,298 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
-#include <vector>
-#include <random>
 
-// Définition de la classe Cell représentant une case du plateau
-class Cell {
-public:
-    bool hasHorizontalWall;
-    bool hasVerticalWall;
-    bool hasRobot;
+enum class Valeur { Vide, Mur, Robot1, Robot2, Robot3, Robot4 };
 
-    Cell() : hasHorizontalWall(false), hasVerticalWall(false), hasRobot(false) {}
+struct Case {
+  int positionX;
+  int positionY;
+  Valeur valeur;
 };
 
-// Définition de la classe GameBoard représentant le plateau de jeu
-class GameBoard {
+class Plateau {
 public:
-    static const int SIZE = 16;
-    std::vector<std::vector<Cell>> board;
+  static const int taille = 33;
+  static const int tailleCarre = 8;
+  static const int nbAngles = 15;
 
-    GameBoard() {
-        board.resize(SIZE, std::vector<Cell>(SIZE));
-    }
+  Case cases[taille][taille];
 
-    void display() const {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                std::cout << "+";
-                std::cout << (board[i][j].hasHorizontalWall ? "-" : " ");
-            }
-            std::cout << "+\n";
-            for (int j = 0; j < SIZE; j++) {
-                std::cout << (board[i][j].hasVerticalWall ? "|" : " ");
-                std::cout << (board[i][j].hasRobot ? "R" : " ");
-            }
-            std::cout << "|\n";
+  Plateau() {
+    std::srand(std::time(0));
+
+    for (int i = 0; i < taille; i++) {
+      for (int j = 0; j < taille; j++) {
+        cases[i][j].positionX = i;
+        cases[i][j].positionY = j;
+
+        if (i >= (taille - tailleCarre) / 2 &&
+            i < (taille - tailleCarre) / 2 + tailleCarre &&
+            j >= (taille - tailleCarre) / 2 &&
+            j < (taille - tailleCarre) / 2 + tailleCarre) {
+          cases[i][j].valeur = Valeur::Mur;
+        } else {
+          cases[i][j].valeur = Valeur::Vide;
         }
-        for (int j = 0; j < SIZE; j++) {
-            std::cout << "+-";
+      }
+    }
+    repartirMursBordures();
+    repartirAnglesMurs();
+    // repartirMursAleatoires();
+    repartirRobots();
+  }
+
+  void afficherPlateau() {
+    for (int i = 0; i < taille; i++) {
+      for (int j = 0; j < taille; j++) {
+        switch (cases[i][j].valeur) {
+        case Valeur::Vide:
+          std::cout << " ";
+          break;
+        case Valeur::Mur:
+          std::cout << "@";
+          break;
+        case Valeur::Robot1:
+          std::cout << "1";
+          break;
+        case Valeur::Robot2:
+          std::cout << "2";
+          break;
+        case Valeur::Robot3:
+          std::cout << "3";
+          break;
+        case Valeur::Robot4:
+          std::cout << "4";
+          break;
         }
-        std::cout << "+\n";
+      }
+      std::cout << std::endl;
+    }
+  }
+
+  void trouverEmplacementRobot(int numeroRobot) {
+    for (int i = 0; i < taille; i++) {
+      for (int j = 0; j < taille; j++) {
+        switch (cases[i][j].valeur) {
+        case Valeur::Robot1:
+          if (numeroRobot == 1) {
+            std::cout << "Emplacement du robot 1 : (" << i << ", " << j << ")"
+                      << std::endl;
+            return;
+          }
+          break;
+        case Valeur::Robot2:
+          if (numeroRobot == 2) {
+            std::cout << "Emplacement du robot 2 : (" << i << ", " << j << ")"
+                      << std::endl;
+            return;
+          }
+          break;
+        case Valeur::Robot3:
+          if (numeroRobot == 3) {
+            std::cout << "Emplacement du robot 3 : (" << i << ", " << j << ")"
+                      << std::endl;
+            return;
+          }
+          break;
+        case Valeur::Robot4:
+          if (numeroRobot == 4) {
+            std::cout << "Emplacement du robot 4 : (" << i << ", " << j << ")"
+                      << std::endl;
+            return;
+          }
+          break;
+        }
+      }
     }
 
-    void generateBoard() {
-        generateOuterWalls();
-        generateInnerWalls();
-        placeRobots();
+    std::cout << "Robot non trouvé !" << std::endl;
+  }
+
+  void deplacerRobot(int numeroRobot, char direction) {
+    int deltaX = 0;
+    int deltaY = 0;
+
+    switch (direction) {
+    case 'h':
+      deltaX = -1;
+      break;
+    case 'b':
+      deltaX = 1;
+      break;
+    case 'g':
+      deltaY = -1;
+      break;
+    case 'd':
+      deltaY = 1;
+      break;
+    default:
+      std::cout << "Direction invalide !" << std::endl;
+      return;
     }
+
+    for (int i = 0; i < taille; i++) {
+      for (int j = 0; j < taille; j++) {
+        switch (cases[i][j].valeur) {
+        case Valeur::Robot1:
+          if (numeroRobot == 1) {
+            deplacerRobotVers(i, j, deltaX, deltaY);
+            return;
+          }
+          break;
+        case Valeur::Robot2:
+          if (numeroRobot == 2) {
+            deplacerRobotVers(i, j, deltaX, deltaY);
+            return;
+          }
+          break;
+        case Valeur::Robot3:
+          if (numeroRobot == 3) {
+            deplacerRobotVers(i, j, deltaX, deltaY);
+            return;
+          }
+          break;
+        case Valeur::Robot4:
+          if (numeroRobot == 4) {
+            deplacerRobotVers(i, j, deltaX, deltaY);
+            return;
+          }
+          break;
+        }
+      }
+    }
+
+    std::cout << "Robot non trouvé !" << std::endl;
+  }
 
 private:
-    std::random_device rd;
-    std::mt19937 rng{ rd() };
+  int voirplusoumoin() {
+    // std::srand(std::time(0));
+    return std::rand() % 2;
+  }
+  void repartirAnglesMurs() {
+    int anglesRestants = nbAngles;
 
-    void generateOuterWalls() {
-        for (int i = 0; i < SIZE; i++) {
-            board[0][i].hasHorizontalWall = true;
-            board[SIZE - 1][i].hasHorizontalWall = true;
-            board[i][0].hasVerticalWall = true;
-            board[i][SIZE - 1].hasVerticalWall = true;
+    while (anglesRestants > 0) {
+      // Génération d'un nombre aléatoire entre 0 et 1
+      // std::srand(std::time(0));
+      // int X = std::rand() % 2;
+      // int Y = std::rand() % 2;
+      int X1 = -1;
+      int X2 = -2;
+      int Y1 = -1;
+      int Y2 = -2;
+      int X = voirplusoumoin();
+      int Y = voirplusoumoin();
+      if (X == 0) {
+        X1 = 1;
+        X2 = 2;
+      } else {
+        X1 = -1;
+        X2 = -2;
+      }
+      if (Y == 0) {
+        Y1 = 1;
+        Y2 = 2;
+      } else {
+        Y1 = -1;
+        Y2 = -2;
+      }
+
+      int randomX = std::rand() % taille;
+      int randomY = std::rand() % taille;
+
+      if (cases[randomX][randomY].valeur == Valeur::Vide && randomX % 2 != 0 &&
+          randomY % 2 != 0) {
+        // Vérifier si les positions adjacentes sont également vides
+        if (cases[randomX + X1][randomY].valeur == Valeur::Vide &&
+            cases[randomX + X2][randomY].valeur == Valeur::Vide &&
+            cases[randomX][randomY + Y1].valeur == Valeur::Vide &&
+            cases[randomX][randomY + Y2].valeur == Valeur::Vide) {
+          // Placer les 5 murs de l'angle
+          cases[randomX][randomY].valeur = Valeur::Mur;
+          cases[randomX + X1][randomY].valeur = Valeur::Mur;
+          cases[randomX + X2][randomY].valeur = Valeur::Mur;
+          cases[randomX][randomY + Y1].valeur = Valeur::Mur;
+          cases[randomX][randomY + Y2].valeur = Valeur::Mur;
+
+          anglesRestants--;
         }
+      }
+    }
+  }
+
+  void repartirMursBordures() {
+    // Répartition des murs sur les bordures horizontales
+    for (int i = 0; i < taille; i++) {
+      cases[i][0].valeur = Valeur::Mur;
+      cases[i][taille - 1].valeur = Valeur::Mur;
     }
 
-    void generateInnerWalls() {
-        generateQuadrantWalls(0, 0);
-        generateQuadrantWalls(0, SIZE / 2);
-        generateQuadrantWalls(SIZE / 2, 0);
-        generateQuadrantWalls(SIZE / 2, SIZE / 2);
-        generateRandomAngle();
+    // Répartition des murs sur les bordures verticales
+    for (int j = 1; j < taille - 1; j++) {
+      cases[0][j].valeur = Valeur::Mur;
+      cases[taille - 1][j].valeur = Valeur::Mur;
     }
+  }
 
-    void generateQuadrantWalls(int startX, int startY) {
-        generateRandomOuterWall(startX, startY);
-        generateRandomOuterWall(startX, startY + SIZE / 2);
-        generateRandomOuterWall(startX + SIZE / 2, startY);
-        generateRandomOuterWall(startX + SIZE / 2, startY + SIZE / 2);
-        generateRandomAngle(startX, startY);
-        generateRandomAngle(startX, startY + SIZE / 2);
-        generateRandomAngle(startX + SIZE / 2, startY);
-        generateRandomAngle(startX + SIZE / 2, startY + SIZE / 2);
+  void repartirRobots() {
+    for (int k = 0; k < 4; k++) {
+      int robotX, robotY;
+
+      do {
+        robotX = std::rand() % taille;
+        robotY = std::rand() % taille;
+      } while (cases[robotX][robotY].valeur == Valeur::Mur);
+
+      cases[robotX][robotY].valeur = static_cast<Valeur>(k + 2);
     }
+  }
 
-    void generateRandomOuterWall(int x, int y) {
-        std::uniform_int_distribution<int> dist(0, 1);
-        board[x][y].hasHorizontalWall = dist(rng) == 1;
-        board[x][y].hasVerticalWall = dist(rng) == 1;
+  void deplacerRobotVers(int x, int y, int deltaX, int deltaY) {
+    int newX = x + deltaX;
+    int newY = y + deltaY;
+
+    while (newX >= 0 && newX < taille && newY >= 0 && newY < taille &&
+           cases[newX][newY].valeur != Valeur::Mur) {
+      // Déplacer le robot
+      cases[newX][newY].valeur = cases[x][y].valeur;
+      cases[x][y].valeur = Valeur::Vide;
+
+      x = newX;
+      y = newY;
+      newX += deltaX;
+      newY += deltaY;
     }
-
-    void generateRandomAngle(int startX = 0, int startY = 0) {
-        std::uniform_int_distribution<int> distX(startX + 1, startX + SIZE / 2 - 2);
-        std::uniform_int_distribution<int> distY(startY + 1, startY + SIZE / 2 - 2);
-        int x = distX(rng);
-        int y = distY(rng);
-
-        board[x][y].hasHorizontalWall = true;
-        board[x][y].hasVerticalWall = true;
-    }
-
-    void placeRobots() {
-        std::uniform_int_distribution<int> dist(1, SIZE / 2 - 2);
-        std::uniform_int_distribution<int> distColor(0, 3);
-
-        for (int i = 0; i < 4; i++) {
-            int x = dist(rng);
-            int y = dist(rng);
-            board[x][y].hasRobot = true;
-        }
-
-        int targetX = dist(rng);
-        int targetY = dist(rng);
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-        board[targetX][targetY].hasRobot = true;
-    }
+  }
 };
 
 int main() {
-    GameBoard gameBoard;
-    gameBoard.generateBoard();
-    gameBoard.display();
+  Plateau plateau;
+  plateau.afficherPlateau();
 
-    return 0;
+  char continuer = 'o';
+
+  while (continuer == 'o') {
+    int numeroRobot;
+    std::cout << "Entrez le numéro du robot (1, 2, 3 ou 4) : ";
+    std::cin >> numeroRobot;
+
+    plateau.trouverEmplacementRobot(numeroRobot);
+
+    char direction;
+    std::cout << "Entrez la direction de déplacement (haut : 'h', bas : 'b', "
+                 "gauche : 'g', droite : 'd') : ";
+    std::cin >> direction;
+
+    plateau.deplacerRobot(numeroRobot, direction);
+
+    std::cout << "Plateau après déplacement :" << std::endl;
+    plateau.afficherPlateau();
+
+    std::cout << "Voulez-vous déplacer un autre robot ? (o/n) : ";
+    std::cin >> continuer;
+  }
+
+  return 0;
 }
