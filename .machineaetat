@@ -1,0 +1,36 @@
+  |  Nb J? V JB
+  |    ->saisir le nom d'un joueur et valider
+  |    -> associe un id au nom 
+  |    ->o/n pour mettre fin au joueur
+  |  
+  |  Génération plateau et classes V JB
+  |  
+  |  Affichage V JB K
+  |  
+  |  Tuile select
+  |    ->saisi aléatoirement une tuile
+  |  
+  |  J'ai trouvé (demande en permanance si trouvé ou non, écrire l'id, reboucler si inexistant, puis nb coup)
+  |  
+  |    ->enclenche un chrono de 1 minutes en boucle
+  |    ->demande en permanence un id de joueur
+  |    ->Quel Joueur
+  |    ->nb coup?
+  |  
+  |  sauvegarde plateau -> chaîne?
+  |  
+  |  Démo
+  |    -> reboucle Joueur suivant si supérieur au nombre de coup annoncé
+  |    -> break si réussite
+  |    |  utiliser des touches directionnelles
+  |    |  indique graphiquement la direction
+  |    |  -> gestion des collisions et de la balise
+  |    |
+  |    |  retient le coup le plus petit
+  |    |  
+  |  
+  |  Compteur de point
+  |   -> reboucle au tuile select
+  |   -> break si un joueur est à dix
+  |
+Fin : annonce le gagnant et demande nouvelle partie
