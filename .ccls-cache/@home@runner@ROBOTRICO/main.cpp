@@ -1,4 +1,5 @@
 //#include "Plateau.h"
+//#include "gtest/gtest.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -99,36 +100,33 @@ public:
   }
 };
 
-
 // Fonction pour vérifier si la réponse de l'utilisateur est valide
-template<typename T>
-T getUserInput(const std::string& prompt, const std::initializer_list<T>& validChoices) {
-    T userInput;
-    bool isValidChoice = false;
+template <typename T>
+T getUserInput(const std::string &prompt,
+               const std::initializer_list<T> &validChoices) {
+  T userInput;
+  bool isValidChoice = false;
 
-    do {
-        std::cout << prompt;
-        std::cin >> userInput;
+  do {
+    std::cout << prompt;
+    std::cin >> userInput;
 
-        for (const auto& choice : validChoices) {
-            if (choice == userInput) {
-                isValidChoice = true;
-                break;
-            }
-        }
+    for (const auto &choice : validChoices) {
+      if (choice == userInput) {
+        isValidChoice = true;
+        break;
+      }
+    }
 
-        if (!isValidChoice) {
-            std::cout << "Réponse invalide. Veuillez réessayer." << std::endl;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-    } while (!isValidChoice);
+    if (!isValidChoice) {
+      std::cout << "Réponse invalide. Veuillez réessayer." << std::endl;
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+  } while (!isValidChoice);
 
-    return userInput;
+  return userInput;
 }
-
-
-
 
 /**
  * @brief Génère une liste de joueurs à partir de l'entrée standard.
@@ -185,6 +183,7 @@ Joueur &obtenirJoueurNonJoueMinCoup(std::vector<Joueur> &joueurs) {
  * @param joueurs La liste des joueurs.
  * @return True si tous les joueurs ont joué, False sinon.
  */
+
 bool tousJoueursOntJoue(const std::vector<Joueur> &joueurs) {
   for (const Joueur &joueur : joueurs) {
     if (!joueur.aJoueCoup()) {
@@ -244,11 +243,16 @@ public:
       // Déplacement des robots
       int numeroRobot = 0;
 
-      numeroRobot = getUserInput<int>("Entrez le numéro du robot (1, 2, 3 ou 4) : ", {1, 2, 3, 4}); // Vérification des choix possibles
+      numeroRobot =
+          getUserInput<int>("Entrez le numéro du robot (1, 2, 3 ou 4) : ",
+                            {1, 2, 3, 4}); // Vérification des choix possibles
       trouverEmplacementRobot(numeroRobot);
       char direction;
 
-      direction = getUserInput<char>("Entrez la direction de déplacement (haut : 'h', bas : 'b', gauche : 'g', droite : 'd') : ", {'h', 'b', 'g', 'd'}); // Vérification des choix possibles
+      direction = getUserInput<char>(
+          "Entrez la direction de déplacement (haut : 'h', bas : 'b', gauche : "
+          "'g', droite : 'd') : ",
+          {'h', 'b', 'g', 'd'}); // Vérification des choix possibles
       deplacerRobot(numeroRobot, direction);
       // Vérification du nombre de coups restants
       afficherPlateau();
@@ -300,6 +304,12 @@ public:
   @brief Trouve l'emplacement actuel du robot sur le plateau.
   @param numeroRobot Le numéro du robot.
   */
+
+
+/*TEST(trouverEmplacementRobot, RechercheRobot) {
+EXPECT_EQ(, trouverEmplacementRobot(1));
+}*/
+
   void trouverEmplacementRobot(int numeroRobot) {
     for (int i = 0; i < taille; i++) {
       for (int j = 0; j < taille; j++) {
@@ -649,8 +659,7 @@ void lancerUnePartie() {
 
   if (choixRejouer == 'O' || choixRejouer == 'o') {
     lancerUnePartie();
-  }
-  else{
+  } else {
     cout << "End game ";
   }
 }

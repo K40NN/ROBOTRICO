@@ -1,4 +1,5 @@
 //#include "Plateau.h"
+//#include "gtest/gtest.h"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -182,6 +183,7 @@ Joueur &obtenirJoueurNonJoueMinCoup(std::vector<Joueur> &joueurs) {
  * @param joueurs La liste des joueurs.
  * @return True si tous les joueurs ont joué, False sinon.
  */
+
 bool tousJoueursOntJoue(const std::vector<Joueur> &joueurs) {
   for (const Joueur &joueur : joueurs) {
     if (!joueur.aJoueCoup()) {
@@ -302,6 +304,12 @@ public:
   @brief Trouve l'emplacement actuel du robot sur le plateau.
   @param numeroRobot Le numéro du robot.
   */
+
+
+/*TEST(trouverEmplacementRobot, RechercheRobot) {
+EXPECT_EQ(, trouverEmplacementRobot(1));
+}*/
+
   void trouverEmplacementRobot(int numeroRobot) {
     for (int i = 0; i < taille; i++) {
       for (int j = 0; j < taille; j++) {
