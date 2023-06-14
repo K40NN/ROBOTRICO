@@ -1,0 +1,104 @@
+\hypertarget{classPlateau}{}\doxysection{Plateau Class Reference}
+\label{classPlateau}\index{Plateau@{Plateau}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPlateau_a2a758b7308eac4113e9eb19671f386e2}{lancement\+\_\+pour\+\_\+joueur}} (int joueur\+Actuel, int nombre\+Coups\+Joueur)
+\begin{DoxyCompactList}\small\item\em Effectue le lancement pour un joueur donné avec un nombre de coups spécifié. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlateau_aa417a49b3fef4ada1b84ebff579b98fd}\label{classPlateau_aa417a49b3fef4ada1b84ebff579b98fd}} 
+void {\bfseries afficher\+Plateau} ()
+\begin{DoxyCompactList}\small\item\em Affiche le plateau de jeu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlateau_a1de7479f9542fd31571cc7aa61efd3aa}{trouver\+Emplacement\+Robot}} (int numero\+Robot)
+\begin{DoxyCompactList}\small\item\em Trouve l\textquotesingle{}emplacement actuel du robot sur le plateau. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlateau_a2d4ff2a45566c1454ca21ef150fb357f}{deplacer\+Robot}} (int numero\+Robot, char direction)
+\begin{DoxyCompactList}\small\item\em Déplace le robot spécifié dans une direction donnée. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classPlateau_a8c42a1ef1c349f69ff1431155da52071}{verifier\+Cible\+Atteinte}} () const
+\begin{DoxyCompactList}\small\item\em Vérifie si la cible a été atteinte. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPlateau_aa1a429ecdfeabbfafc08ebea86de8982}\label{classPlateau_aa1a429ecdfeabbfafc08ebea86de8982}} 
+\mbox{\hyperlink{structCase}{Case}} {\bfseries cases} \mbox{[}taille\mbox{]}\mbox{[}taille\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classPlateau_aba26ddd7376c946651b745293f3228d3}\label{classPlateau_aba26ddd7376c946651b745293f3228d3}} 
+static const int {\bfseries taille} = 33
+\item 
+\mbox{\Hypertarget{classPlateau_a244cac92257accfee29fcf2c22dbd930}\label{classPlateau_a244cac92257accfee29fcf2c22dbd930}} 
+static const int {\bfseries taille\+Carre} = 8
+\item 
+\mbox{\Hypertarget{classPlateau_a4616a8425e15f050865dd48e85abb8b5}\label{classPlateau_a4616a8425e15f050865dd48e85abb8b5}} 
+static const int {\bfseries nb\+Angles} = 15
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPlateau_a2d4ff2a45566c1454ca21ef150fb357f}\label{classPlateau_a2d4ff2a45566c1454ca21ef150fb357f}} 
+\index{Plateau@{Plateau}!deplacerRobot@{deplacerRobot}}
+\index{deplacerRobot@{deplacerRobot}!Plateau@{Plateau}}
+\doxysubsubsection{\texorpdfstring{deplacerRobot()}{deplacerRobot()}}
+{\footnotesize\ttfamily void Plateau\+::deplacer\+Robot (\begin{DoxyParamCaption}\item[{int}]{numero\+Robot,  }\item[{char}]{direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Déplace le robot spécifié dans une direction donnée. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero\+Robot} & Le numéro du robot à déplacer. \\
+\hline
+{\em direction} & La direction dans laquelle déplacer le robot (\textquotesingle{}h\textquotesingle{} pour haut, \textquotesingle{}b\textquotesingle{} pour bas, \textquotesingle{}g\textquotesingle{} pour gauche, \textquotesingle{}d\textquotesingle{} pour droite). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlateau_a2a758b7308eac4113e9eb19671f386e2}\label{classPlateau_a2a758b7308eac4113e9eb19671f386e2}} 
+\index{Plateau@{Plateau}!lancement\_pour\_joueur@{lancement\_pour\_joueur}}
+\index{lancement\_pour\_joueur@{lancement\_pour\_joueur}!Plateau@{Plateau}}
+\doxysubsubsection{\texorpdfstring{lancement\_pour\_joueur()}{lancement\_pour\_joueur()}}
+{\footnotesize\ttfamily void Plateau\+::lancement\+\_\+pour\+\_\+joueur (\begin{DoxyParamCaption}\item[{int}]{joueur\+Actuel,  }\item[{int}]{nombre\+Coups\+Joueur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Effectue le lancement pour un joueur donné avec un nombre de coups spécifié. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joueur\+Actuel} & Le numéro du joueur. \\
+\hline
+{\em nombre\+Coups\+Joueur} & Le nombre de coups que le joueur peut jouer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlateau_a1de7479f9542fd31571cc7aa61efd3aa}\label{classPlateau_a1de7479f9542fd31571cc7aa61efd3aa}} 
+\index{Plateau@{Plateau}!trouverEmplacementRobot@{trouverEmplacementRobot}}
+\index{trouverEmplacementRobot@{trouverEmplacementRobot}!Plateau@{Plateau}}
+\doxysubsubsection{\texorpdfstring{trouverEmplacementRobot()}{trouverEmplacementRobot()}}
+{\footnotesize\ttfamily void Plateau\+::trouver\+Emplacement\+Robot (\begin{DoxyParamCaption}\item[{int}]{numero\+Robot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Trouve l\textquotesingle{}emplacement actuel du robot sur le plateau. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero\+Robot} & Le numéro du robot. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlateau_a8c42a1ef1c349f69ff1431155da52071}\label{classPlateau_a8c42a1ef1c349f69ff1431155da52071}} 
+\index{Plateau@{Plateau}!verifierCibleAtteinte@{verifierCibleAtteinte}}
+\index{verifierCibleAtteinte@{verifierCibleAtteinte}!Plateau@{Plateau}}
+\doxysubsubsection{\texorpdfstring{verifierCibleAtteinte()}{verifierCibleAtteinte()}}
+{\footnotesize\ttfamily bool Plateau\+::verifier\+Cible\+Atteinte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Vérifie si la cible a été atteinte. 
+
+\begin{DoxyReturn}{Returns}
+true si la cible a été atteinte, false sinon. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+main.\+cpp\end{DoxyCompactItemize}

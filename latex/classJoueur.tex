@@ -1,0 +1,158 @@
+\hypertarget{classJoueur}{}\doxysection{Joueur Class Reference}
+\label{classJoueur}\index{Joueur@{Joueur}}
+
+
+Classe représentant un joueur du jeu.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classJoueur_ace038b90b1d7215c5629f37b00f319d8}{Joueur}} (int numero)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \mbox{\hyperlink{classJoueur}{Joueur}}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classJoueur_a78f6f93cdb1b220bf49353e0db0a6938}{get\+Numero}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour le numéro du joueur. \end{DoxyCompactList}\item 
+const std\+::string \& \mbox{\hyperlink{classJoueur_a0f4db808171ab38b7ef250e6e83c8c7c}{get\+Nom}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour le nom du joueur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJoueur_a2e95a70e0bfcad165399fdbf904b1bc1}{set\+Nom}} (const std\+::string \&nouveau\+Nom)
+\begin{DoxyCompactList}\small\item\em Setter pour le nom du joueur. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classJoueur_a1fd89b78876a9c038086b978179f9041}{a\+Joue\+Coup}} () const
+\begin{DoxyCompactList}\small\item\em Vérifie si le joueur a joué un coup. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJoueur_ad7bebb5aea8aa83f16425ea4c57f4580}{set\+AJoue\+Coup}} (bool \mbox{\hyperlink{classJoueur_a1fd89b78876a9c038086b978179f9041}{a\+Joue\+Coup}})
+\begin{DoxyCompactList}\small\item\em Setter pour l\textquotesingle{}indicateur de coup joué par le joueur. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classJoueur_acc85632b0e53a92c6afb032e91a069af}{get\+Nombre\+Coup}} () const
+\begin{DoxyCompactList}\small\item\em Getter pour le nombre de coups effectués par le joueur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classJoueur_aa7b1cf1dfaf852b286371c6969ccfa70}{set\+Nombre\+Coup}} (int nouveau\+Nombre\+Coup)
+\begin{DoxyCompactList}\small\item\em Setter pour le nombre de coups effectués par le joueur. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classJoueur_aa9116fb13bedc2feebf222ddb6dacbb0}\label{classJoueur_aa9116fb13bedc2feebf222ddb6dacbb0}} 
+void {\bfseries saisir\+Nom} ()
+\begin{DoxyCompactList}\small\item\em Saisit le nom du joueur à partir de l\textquotesingle{}entrée standard. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classJoueur_a82cb6cc4340078a8622182c1c5eb07cd}\label{classJoueur_a82cb6cc4340078a8622182c1c5eb07cd}} 
+void {\bfseries saisir\+Nombre\+Coup} ()
+\begin{DoxyCompactList}\small\item\em Saisit le nombre de coups que le joueur compte faire à partir de l\textquotesingle{}entrée standard. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe représentant un joueur du jeu. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classJoueur_ace038b90b1d7215c5629f37b00f319d8}\label{classJoueur_ace038b90b1d7215c5629f37b00f319d8}} 
+\index{Joueur@{Joueur}!Joueur@{Joueur}}
+\index{Joueur@{Joueur}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{Joueur()}{Joueur()}}
+{\footnotesize\ttfamily Joueur\+::\+Joueur (\begin{DoxyParamCaption}\item[{int}]{numero }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructeur de la classe \mbox{\hyperlink{classJoueur}{Joueur}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero} & Le numéro du joueur. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classJoueur_a1fd89b78876a9c038086b978179f9041}\label{classJoueur_a1fd89b78876a9c038086b978179f9041}} 
+\index{Joueur@{Joueur}!aJoueCoup@{aJoueCoup}}
+\index{aJoueCoup@{aJoueCoup}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{aJoueCoup()}{aJoueCoup()}}
+{\footnotesize\ttfamily bool Joueur\+::a\+Joue\+Coup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Vérifie si le joueur a joué un coup. 
+
+\begin{DoxyReturn}{Returns}
+True si le joueur a joué, False sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJoueur_a0f4db808171ab38b7ef250e6e83c8c7c}\label{classJoueur_a0f4db808171ab38b7ef250e6e83c8c7c}} 
+\index{Joueur@{Joueur}!getNom@{getNom}}
+\index{getNom@{getNom}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getNom()}{getNom()}}
+{\footnotesize\ttfamily const std\+::string \& Joueur\+::get\+Nom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter pour le nom du joueur. 
+
+\begin{DoxyReturn}{Returns}
+Le nom du joueur. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJoueur_acc85632b0e53a92c6afb032e91a069af}\label{classJoueur_acc85632b0e53a92c6afb032e91a069af}} 
+\index{Joueur@{Joueur}!getNombreCoup@{getNombreCoup}}
+\index{getNombreCoup@{getNombreCoup}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getNombreCoup()}{getNombreCoup()}}
+{\footnotesize\ttfamily int Joueur\+::get\+Nombre\+Coup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter pour le nombre de coups effectués par le joueur. 
+
+\begin{DoxyReturn}{Returns}
+Le nombre de coups effectués. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJoueur_a78f6f93cdb1b220bf49353e0db0a6938}\label{classJoueur_a78f6f93cdb1b220bf49353e0db0a6938}} 
+\index{Joueur@{Joueur}!getNumero@{getNumero}}
+\index{getNumero@{getNumero}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{getNumero()}{getNumero()}}
+{\footnotesize\ttfamily int Joueur\+::get\+Numero (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter pour le numéro du joueur. 
+
+\begin{DoxyReturn}{Returns}
+Le numéro du joueur. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classJoueur_ad7bebb5aea8aa83f16425ea4c57f4580}\label{classJoueur_ad7bebb5aea8aa83f16425ea4c57f4580}} 
+\index{Joueur@{Joueur}!setAJoueCoup@{setAJoueCoup}}
+\index{setAJoueCoup@{setAJoueCoup}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{setAJoueCoup()}{setAJoueCoup()}}
+{\footnotesize\ttfamily void Joueur\+::set\+AJoue\+Coup (\begin{DoxyParamCaption}\item[{bool}]{a\+Joue\+Coup }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Setter pour l\textquotesingle{}indicateur de coup joué par le joueur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Joue\+Coup} & La valeur de l\textquotesingle{}indicateur de coup joué. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJoueur_a2e95a70e0bfcad165399fdbf904b1bc1}\label{classJoueur_a2e95a70e0bfcad165399fdbf904b1bc1}} 
+\index{Joueur@{Joueur}!setNom@{setNom}}
+\index{setNom@{setNom}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{setNom()}{setNom()}}
+{\footnotesize\ttfamily void Joueur\+::set\+Nom (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{nouveau\+Nom }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Setter pour le nom du joueur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nouveau\+Nom} & Le nouveau nom du joueur. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classJoueur_aa7b1cf1dfaf852b286371c6969ccfa70}\label{classJoueur_aa7b1cf1dfaf852b286371c6969ccfa70}} 
+\index{Joueur@{Joueur}!setNombreCoup@{setNombreCoup}}
+\index{setNombreCoup@{setNombreCoup}!Joueur@{Joueur}}
+\doxysubsubsection{\texorpdfstring{setNombreCoup()}{setNombreCoup()}}
+{\footnotesize\ttfamily void Joueur\+::set\+Nombre\+Coup (\begin{DoxyParamCaption}\item[{int}]{nouveau\+Nombre\+Coup }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Setter pour le nombre de coups effectués par le joueur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nouveau\+Nombre\+Coup} & Le nouveau nombre de coups. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+main.\+cpp\end{DoxyCompactItemize}
