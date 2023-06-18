@@ -100,7 +100,19 @@ public:
   }
 };
 
-// Fonction pour vérifier si la réponse de l'utilisateur est valide
+/**
+ * @brief Obtient l'entrée de l'utilisateur en vérifiant si elle correspond à l'une des valeurs valides spécifiées.
+ * 
+ * @tparam T Le type de la valeur d'entrée.
+ * @param prompt Le message à afficher pour demander à l'utilisateur de saisir une valeur.
+ * @param validChoices Une liste d'initialisation contenant les valeurs valides acceptées en entrée.
+ * @return T La valeur saisie par l'utilisateur.
+ *
+ * Cette fonction demande à l'utilisateur de saisir une valeur en affichant le message spécifié dans 'prompt'. 
+ * Elle vérifie ensuite si la valeur saisie correspond à l'une des valeurs valides spécifiées dans 'validChoices'.
+ * Si l'entrée de l'utilisateur est invalide, il lui est demandé de réessayer jusqu'à ce qu'une réponse valide soit fournie.
+ * La fonction retourne ensuite la valeur saisie par l'utilisateur.
+ */
 template <typename T>
 T getUserInput(const std::string &prompt,
                const std::initializer_list<T> &validChoices) {
@@ -586,26 +598,43 @@ private:
       }
       // cases[robotX][robotY].valeur = static_cast<Valeur>(k + 2);
     }
-  }
-  /**
-   * @brief Déplace le robot vers une nouvelle position en utilisant les deltas
-   * spécifiés.
+  }/**
+   * @brief Déplace le robot vers une nouvelle position en utilisant les deltas spécifiés.
    *
    * @param x La coordonnée x actuelle du robot.
    * @param y La coordonnée y actuelle du robot.
    * @param deltaX Le delta à ajouter à la coordonnée x pour le déplacement.
    * @param deltaY Le delta à ajouter à la coordonnée y pour le déplacement.
+   *
+   * Cette fonction déplace le robot à partir de sa position actuelle (x, y) vers une nouvelle position en utilisant les deltas spécifiés.
+   * Les deltas (deltaX, deltaY) indiquent de combien les coordonnées x et y doivent être modifiées pour le déplacement.
+   *
+   * La fonction effectue les étapes suivantes :
+   * - Calcule les nouvelles coordonnées newX et newY en ajoutant les deltas aux coordonnées actuelles (x, y).
+   * - Exécute une boucle while qui se répète tant que les nouvelles coordonnées restent à l'intérieur des limites du tableau cases, la case correspondante n'est pas un mur, et la case n'est pas occupée par un autre robot (différent de lui-même).
+   *   - Vérifie si la valeur de la case de destination est égale à la valeur du robot actuel. Si ce n'est pas le cas, arrête le déplacement.
+   *   - Déplace le robot en échangeant les valeurs des cases : la valeur de la case actuelle (x, y) devient la valeur de la case de destination (newX, newY), et la valeur de la case de départ devient vide.
+   *   - Met à jour les coordonnées x et y avec les nouvelles coordonnées (newX, newY).
+   *   - Calcule les nouvelles coordonnées newX et newY en ajoutant les deltas aux coordonnées actuelles (x, y).
+   *
+   * Ainsi, la fonction déplace le robot dans le tableau cases en suivant les deltas spécifiés, tant que la nouvelle position reste valide, la case de destination n'est pas un mur, et la case n'est pas occupée par un autre robot (différent de lui-même).
    */
   void deplacerRobotVers(int x, int y, int deltaX, int deltaY) {
     int newX = x + deltaX;
     int newY = y + deltaY;
-
+  
     while (newX >= 0 && newX < taille && newY >= 0 && newY < taille &&
-           cases[newX][newY].valeur != Valeur::Mur) {
+           cases[newX][newY].valeur != Valeur::Mur &&
+           cases[newX][newY].valeur != cases[x][y].valeur) {
+      if (cases[newX][newY].valeur != Valeur::Vide) {
+        // Arrêter le déplacement si la case est occupée par un autre robot (différent de lui-même)
+        break;
+      }
+  
       // Déplacer le robot
       cases[newX][newY].valeur = cases[x][y].valeur;
       cases[x][y].valeur = Valeur::Vide;
-
+  
       x = newX;
       y = newY;
       newX += deltaX;
